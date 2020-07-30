@@ -6,7 +6,7 @@
 An Introduction to Statistical Learning (ISL)
 
 **스터디 시간 및 장소**
-매주 목요일 17:00-18:00 신촌
+매주 목요일 16:30-18:00 신촌
 
 **스터디 커리큘럼**
 |주차|내용|발표자|

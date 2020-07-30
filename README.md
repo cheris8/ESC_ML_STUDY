@@ -9,7 +9,7 @@ An Introduction to Statistical Learning (ISL)
 매주 목요일 17:00-18:00 신촌
 
 **스터디 커리큘럼**
-|----|내용|발표자|
+|주차|내용|발표자|
 |----|---|----|
 |1주차|Ch.3 Linear Regression ~ Ch.4 Classification|엄상준|
 |2주차|Ch.5 Resampling Methods ~ Ch.6 Linear Model Selection and Regularization|김채형 김정현|

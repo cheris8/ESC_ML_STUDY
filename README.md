@@ -16,4 +16,4 @@ An Introduction to Statistical Learning (ISL)
 |3주차|Ch.7 Moving Beyond Linearity|유은영 최정욱|
 |4주차|Ch.8 Tree-Based Methods|김채형 최정욱|
 |5주차|Ch.9 Support Vector Machines|유은영 김정현|
-|6주차|Ch.10 Unsupervised Learning|엄상준 김정현|
+|6주차|Ch.10 Unsupervised Learning|엄상준 김정현 최정욱|

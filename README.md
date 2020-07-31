@@ -2,13 +2,16 @@
 
 연세대학교 응용통계학과 공식 인증 통계 및 데이터사이언스 학회 ESC의 2020학년도 여름방학 머신러닝 기초 스터디를 위한 레포지토리입니다.
 
-**스터디 교재**
-An Introduction to Statistical Learning (ISL)
+**스터디 교재**  
+[An Introduction to Statistical Learning (ISL)](http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf)
 
-**스터디 시간 및 장소**
+**스터디 시간 및 장소**  
+매주 목요일 16:00-18:00 신촌
+
+**스터디 시간 및 장소**  
 매주 목요일 16:30-18:00 신촌
 
-**스터디 커리큘럼**
+**스터디 커리큘럼**  
 |주차|내용|발표자|
 |----|---|----|
 |1주차|Ch.3 Linear Regression ~ Ch.4 Classification|엄상준|

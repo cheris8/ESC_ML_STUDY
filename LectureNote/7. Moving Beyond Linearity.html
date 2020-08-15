@@ -2,18 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<title>ISL_05</title>
-=======
-<title>ISL_05_Resampling_Methods</title>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
-<title>ISL_05_Resampling_Methods</title>
-=======
-<title>ISL_05</title>
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
+<title>7. Moving Beyond Linearity</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13028,6 +13017,45 @@ ul.typeahead-list  > li > a.pull-right {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
+<style type="text/css">
+    
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+
+    </style>
 
 
 <style type="text/css">
@@ -13088,14 +13116,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="ISL-05.-Resampling-Methods">ISL 05. Resampling Methods<a class="anchor-link" href="#ISL-05.-Resampling-Methods">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>credit @ 김채형</p>
+<h1 id="ISL-07:-Moving-Beyond-Linearity">ISL 07: Moving Beyond Linearity<a class="anchor-link" href="#ISL-07:-Moving-Beyond-Linearity">&#182;</a></h1><p><br>
+우리는 지금까지 linear model들에 대해 다뤄왔다. linear model은 단순해서 이해하기 쉬우나, 예측력 측면에서 한계가 있다. 
+<br>선형모델은 선형성 가정을 하는데, 현실과 잘 맞지 않는 경우가 있기 때문이다. 이에 6장에서 Ridge, Lasso, PCR 등 선형모델을 개선시키는 방법을 다뤘다. 
+<br> 7장에서는 우리가 충분히 이해할 수 있으면서도 선형가정을 완화시킬 수 있는 방법을 알아보겠다.</p>
 
 </div>
 </div>
@@ -13103,16 +13127,19 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.0-Overview">5.0 Overview<a class="anchor-link" href="#5.0-Overview">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Resampling methods</strong> : training set으로부터 반복적으로 sample들을 추출하고 각 sample에 대하여 모델을 refitting하는 일련의 작업</p>
-<p><strong>Cross-Validation (교차 검증)</strong> : 모델의 성능을 평가하기 위해 (model assessment) 혹은 모델의 유연성을 적절한 수준으로 선택하기 위해 (model selection) <U>주어진 모델과 관련하여 test error를 추정</U>하는 데에 사용</p>
-<p><strong>Bootstrap (부트스트랩)</strong> : <U>매개변수 추정치의 정확도 혹은 주어진 모델의 정확도에 대한 척도를 제공</U>하는 데에 사용</p>
+<ul>
+<li><strong>Polynomial regression: 기존에 다차항을 추가하여 non-linear data에 적합할 수 있게 선형모델을 확장</strong>
+<br><br></li>
+<li><strong>Step function: 변수를 K개의 구간으로 나누어 질적변수를 만들어낸다.이는 piecewise constant function에 적합하는 효과를 갖는다.</strong> <br>(Piecewise 함수: 여러 부분-함수로 정의되는 함수. 각 부분-함수는 주 함수의 도메인의 특정 간격, 부분-도메인에 적용된다.)
+<br><br></li>
+<li><strong>Regression splines: 전체 X를 K개 구간으로 나누고, 각각의 부분 내에서 다항적합을 하는, 위의 두 방식의 확장이라고 볼 수 있겠다. 이때 다항적합은 양 옆 구간의 다항함수와 매끄럽게 연결되어야 한다. 잘 나눌 경우 regression spline은 유연한 적합을 가능케 한다.</strong> 
+<br><br></li>
+<li><strong>Smoothing splines: regression splines과 비슷하지만, smooth penalty를 포함한 SSE를 최소화하는 방식으로 적합한다.</strong>
+<br><br></li>
+<li><strong>Local regresson: spline방식과 비슷하지만, 각 구간이 겹칠수 있다. 이 방식은 적합을 더 유연하게 한다.</strong>
+<br><br></li>
+<li><strong>Generalized additive model: 위 방식들을 여러 개 예측변수에 적용 가능하게 한다.</strong></li>
+</ul>
 
 </div>
 </div>
@@ -13120,15 +13147,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.1-Cross-Validation">5.1 Cross-Validation<a class="anchor-link" href="#5.1-Cross-Validation">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>test error는 지정된 test set이 있는 경우 쉽게 계산할 수 있지만, 불행히도 우리는 일반적으로 test set을 사용할 수 없는 경우가 많습니다. 반면, training error는 training set에 모델을 fitting함으로써 쉽게 계산할 수 있습니다. 하지만 training error는 test error와 상당히 다른 경우가 많아 문제의 소지가 있습니다.</p>
-<p>지정된 test set이 없는 경우 training set을 사용하여 test error를 추정하는 많은 기법들이 존재합니다. 한가지 방법으로 <U>training error를 수학적으로 조정하여 test error를 추정하는 방법</U>이 있습니다. (Ch.6 : $C_p$, AIC, BIC, adjusted $R^2$) 또다른 방법으로는 <U>training set의 하위 집합을 선택한 다음 이 하위 집합에 모델을 fitting하여 test error를 추정하는 방법</U>이 있습니다. (Ch.5 : The Validation Set Approach, LOOCV, k-Fold CV)</p>
+<h1 id="7.1-Polynomial-Regression">7.1 Polynomial Regression<a class="anchor-link" href="#7.1-Polynomial-Regression">&#182;</a></h1><p><br>
+non linear한 데이터를 적합하는 기본적인 방법이 바로 다항식을 추가하는 것이다. 다항회귀식은 다음과 같다. 
+<br><br>
+$$y_i = β_0 + β_1x_i + β_2x_i^2 + β_3x_i^3 +...+β_dx^d+ ϵ_i$$
+<br> 
+이는 새로운 예측변수로써 다차항을 넣은 것과 같다. (엄밀히 말하면 d차항들에 대한 선형모델)
+<br> 일반적으로 3,4차항 정도까지만 쓰는데, 그보다 높은 차수는 지나치게 flexible하고 모양이 이상해지기 때문이다.</p>
+<p><img src="https://user-images.githubusercontent.com/31824102/36205902-62ddbbda-1188-11e8-9af7-b41190172a16.PNG" style="zoom:77%;" /></p>
 
 </div>
 </div>
@@ -13136,16 +13162,19 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.1.1-The-Validation-Set-Approach">5.1.1 The Validation Set Approach<a class="anchor-link" href="#5.1.1-The-Validation-Set-Approach">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>개념</strong></p>
-<p><img src="./pic/fig5-1.png" alt=""></p>
-<p>Validation Set Approach에서는 데이터셋을 무작위로 training set와 validation set 두 부분으로 나눕니다. 모델은 training set에 fitting하고, fitting한 모델은 validation set의 반응변수를 예측하는 데에 사용됩니다. 그 결과로 나오는 validation set error를 test error의 추정치로 사용합니다.</p>
+<p>왼쪽 그림의 파란 선은 Wage~Age의 자료에 대해 4차적합을 한 것 
+점선은 예측값의 분산을 통해 구한 신뢰띄이다. 예측값의 분산은 단순회귀와 동일하게 구할 수 있다. 다음과 같은 식에서 
+<br>
+<img src="https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/7.12.JPG?raw=true" style="zoom:37%;" />
+<br>
+각 $β_j$의 variance와 각 쌍간의 covariance를 각 점에 대해 구하고 선으로 이은 것이다. 
+<br>
+<br>
+그림을 보면 wage가 250을 기준으로 2개의 다른 집단, 즉 고소득층과 저소득층으로 나뉜다.
+<br> 이 경우 역시나 다음과 같이 다항로지스틱 적합을 할 수도 있다.(로지스틱의 경우 확률을 반환) 
+<br>
+<img src="https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/7.13.JPG?raw=true" style="zoom:47%;" />
+<br>위의 오른쪽 그림에 위 식을 통해 적합된 확률이 나와있다. 고소득층에 대한 데이터가 79개로 적고, 분산이 높아서 결과적으로 95%신뢰구간이 넓게 나왔다.</p>
 
 </div>
 </div>
@@ -13153,12 +13182,15 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>문제점</strong></p>
-<p><img src="./pic/fig5-2.png" alt=""></p>
-<ol>
-<li>validation set error는 training set과 validation set에 어떤 관측치가 포함되는지에 따라 매우 variable 할 수 있습니다. (오른쪽 그림)</li>
-<li>일반적으로 모델을 fitting할 때 사용하는 데이터셋의 크기가 작을수록 모델의 성능은 낮아집니다. Validation Set Approach에서는 전체 데이터셋 중 일부만을 모델을 fitting하는 데에 사용하기 때문에, 이는 validation set error가 전체 데이터셋에 fitting한 모델에 대한 test error를 과대평가하는 경향이 있음을 시사합니다.</li>
-</ol>
+<p>다항함수를 사용하는 것은 예측변수 전 구간에 <strong>non-linear</strong>형태를 부여하는 것과 같다.
+<br>step function에서는 전체 X를 몇개의 구간으로 나눈다. 그리고, 그 구간마다 일정한 상수를 부여한다. 
+<br>이는 연속형 반응변수 Y를 몇개의 범주형 변수로 바꿔서 부여하는것과 같다. 식으로 나타내면 다음과 같다.
+<img src="https://user-images.githubusercontent.com/31824102/36486473-6c31826e-1716-11e8-8267-ecf2eef8dcd6.PNG" style="zoom:77%;" />
+<br>전체 X를 K개 범주로 나누고, 각 범주에 대해 상수를 부여했다. 
+<br> 범주에 들어가면 1이고 나머지는 0이된다는 점에서 dummy variable과 비슷하게 이해하면 쉽다. 식의 계수들은 least square로 적합하여 구하면 된다. 
+<br><br>
+다음과 같은 식으로 logistic regressoin model에 적합할 수도 있다.
+<img src="https://user-images.githubusercontent.com/31824102/36486467-6ba3d734-1716-11e8-9607-65ce3cf44892.PNG" style="zoom:77%;" /></p>
 
 </div>
 </div>
@@ -13166,1940 +13198,554 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Lab 5.3.1 The Validation Set Appraoch</strong></p>
+<h1 id="7.2-Step-Functions">7.2 Step Functions<a class="anchor-link" href="#7.2-Step-Functions">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://user-images.githubusercontent.com/31824102/36486470-6bdab43e-1716-11e8-9d22-1b5b4a728843.PNG" style="zoom:77%;" />
+그러나, 예측 변수에 자연스러운 중단점이 없으면 step function은 작업을 놓칠 수 있다. 
+<br>예를 들어, 왼쪽 그림에서 첫 번째 구간은 연령에 따른 임금 상승 추세를 분명히 놓치고 있다.
+<br> 즉, 구간을 어떻게 나누느냐에 따라 제대로 작동하지 못할 수 있는 것이다. (그럼에도 불구, 이 방식은 생물 통계학 및 역학에서 매우 인기 있음)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br></p>
+<h1 id="7.3-Basis-Functions">7.3 Basis Functions<a class="anchor-link" href="#7.3-Basis-Functions">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>사실, 앞서 다룬 polynomial과 piecewise-constant regression은 basis function의 특수한 경우이다.
+<br>basis function는 다음과 같은 식으로 나타낼 수 있다.
+<br><br>
+$$ y_i = β_0 + β_1b_1(x_i)+β_2b_2(x_i)+β_3b_3(x_i)+...+ β_Kb_K(x_i)+ϵi. $$
+<br>
+$x_i$에 대한 여러 함수들로 식을 표현하는 것이다. step function과 비슷한 형태다. 이때 각 함수 $b_k(x_i)$가 어떠한 형태일지-1차항인지 2차항도 포함인지-는 분석자가 미리 정해놓기 때문에 여러가지 개념을 포함할 수 있다. 가령 이 $b_i(x_i)$를 각각의 예측변수로 생각하면, standard linear model로 생각할 수 있다.
+<br> 이제 대표적인 basis function인 regression splines를 살펴보자.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br></p>
+<h1 id="7.4-Regression-Spines">7.4 Regression Spines<a class="anchor-link" href="#7.4-Regression-Spines">&#182;</a></h1><h2 id="7.4.1-Piecewise-Polynomials">7.4.1 Piecewise Polynomials<a class="anchor-link" href="#7.4.1-Piecewise-Polynomials">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Piecewise Polynomial Regression: 전체 X의 범위에 고차항의 다항적합을 하는 것이 아니라, 몇개의 범주에 상대적으로 낮은 차수의 적합을 따로따로 한다. ex) 각 범주마다 $y_i = β_0 + β_1x_i + β_2x_i^2 + β_3x_i^3 +ϵ_i$를 적합하는 것이다. <strong>이때 각 범주마다 회귀계수는 각 범주마다 다르다.</strong> 각 범주가 바뀌는 지점을 <strong>knots</strong>라 부른다.</p>
+<p>예를 들어 knot가 상수 c 지점에서 하나 뿐이면, piecewise cubic(3차) polynomial식은 다음과 같다.
+<img src="https://user-images.githubusercontent.com/31824102/36486465-6b6fe564-1716-11e8-8f1f-3b634091f6f4.PNG" style="zoom:77%;"/></p>
+<p>$(x_i&lt;c)$와 $(x_i≥c)$의 2개의 subset에 두번의 다항적합을 한것이라 보면 된다. 각 계수들은 지금까지와 같이 least sqaure로 적합. 
+<br>이때, 모델의 자유도는 추정할 계수들의 수, 즉 4개씩 2범주로,  $df=8$이 된다.</p>
+<p>그러나 다른 제약을 걸지 않은 상태로는 다음과 같은 모델이 만들어진다.
+<img src="https://user-images.githubusercontent.com/31824102/36486460-6ae9f17a-1716-11e8-8c02-8ce4b3531244.PNG">
+50세를 기점으로 점프했다. 얼마나 비합리적인 모델인가. 그래서 우리는 제약을 걸어주기 위해 추가적인 방법을 사용한다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="7.4.2-Constraints-and-Splines">7.4.2 Constraints and Splines<a class="anchor-link" href="#7.4.2-Constraints-and-Splines">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>위와 같은 비합리적 모델이 나오지 않도록, <strong>1) 적합된 각 곡선이 서로 연결(continuous)되어야 한다</strong>는 제약을 추가하자. 
+<br>이에 따라 곡선들을 연결하면</p>
+<p><img src="https://user-images.githubusercontent.com/31824102/36486456-6aaebe84-1716-11e8-8d93-9e9ae6b9838c.PNG"></p>
+<p>잘 연결되었지만, 여전히 V자로 꺾여있다. 이 데이터에서는 V가 완만하지만, 단순 연결만 조건으로 걸면 다른 경우에는 뾰족한 V가 나올수도 있다. <br>따라서 새로운 제약 두개를 추가하자. <strong>2) age=50의 knots에서 1차 미분 가능해야 한다 3) 2차 미분 가능해야 한다!</strong> 
+<br><br>이러면 연결되어 있는 매끄러운 곡선이 나온다.</p>
+<p><img src="https://user-images.githubusercontent.com/31824102/36486453-6a70c4a8-1716-11e8-8295-6d69ee02806c.PNG"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>각각의 제약은 자유도(degree of freedom, 추정하고자 하는 회귀계수의 수)를 하나씩 잃는 것을 의미한다. 
+<br>맨 위의 piecewise cubic에서는 자유도가 8이었지만, 3개의 제약으로 인해, Cubic Spline은 자유도가 5가 된다.
+<br><br>
+d차 적합을 하며 K개의 knots가 있는 regressoin spline의 경우 $(d+1)(K+1)−dK$의 자유도를 갖는다 보면 된다. (K개 knote니까 구간은 K+1개로 나뉘고, knot마다‘연속 + d-1차까지 미분가능'이라는 제약이 들어감) 이때, 상수항을 빼고 세면 $d+K$.
+<br><br> 일반화하면, d차 spline적합은 1) 각 piecewise에서 d차 다항적합을 하고, 2) 각 knot에서 (d-1)차까지의 미분가능
+<br>즉 매끄럽게 연속적이어야 한다는 제약이 붙는다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="7.4.3-The-Splines-Basis-Representation">7.4.3 The Splines Basis Representation<a class="anchor-link" href="#7.4.3-The-Splines-Basis-Representation">&#182;</a></h2><p>그렇다면 d차 적합을 하면서 d-1차까지의 미분가능이라는 제약을 어떻게 충족할 수 있는가?
+<br>이는 앞에서 다루었던 Basis function을 통해 알 수 있다. 
+<img src= "https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/7.4.3.JPG?raw=true"  style="zoom:67%;"/>
+K개의 knots가 있는 cubic spline도 역시 b1,..,bk+3이 선택된다면 위 식 같이 basis function의 형태로 표현할 수 있다. 
+<br><br>그럼 cubic spline을 어떻게 저렇게 표현할 수 있을까? 가장 대표적인 방법은 x,x2,x3만 있는 삼차 다항식에서 각 knot마다 truncated power basis function을 추가하는 것이다. truncated power basis function는 다음과 같다.
+<img src="https://user-images.githubusercontent.com/31824102/36486452-6a3dbbda-1716-11e8-849c-932761aa4ee1.PNG"  style="zoom:77%;" />
+ξ는 knot를 의미. 즉 ξ에서 2차 미분(‘d-1’차 미분) 까지 미분이 가능하다는 것을 의미한다. 
+<br>따라서 K개의 knots가 있을때 이를 다음과 같이 표현하게 된다. 
+<img src="https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/7.4.3.2.JPG?raw=true" style="zoom:45%;"/>
+<br>따라서 K개의 knots의 cubic spline적합은, $X,X^2,X^3,h(X,ξ_1),...,h(X,ξ_K)$의 K+3개의 예측변수로 least square적합을 한 것이다. 
+<br>절편항을 생각하면 총 K+4개의 회귀계수를 추정해야 한다. 따라서 K개의 knots의 cubic spline은 $df=K+4$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>그러나 이렇게 구한 cubic spline은 Boundary(양 끝, 처음과 마지막 knot 밖)에서 신뢰구간이 넓어져, 예측의 정확도가 떨어진다. (flexibility up, Variance up)<br> 직관적으로, 전 구간에서 모든 샘플을 사용해 D차 커브를 ﬁtting하는 D차 다항식 ﬁtting에 비해, D차 spline은 knot로 나뉜 각 구간 내의 제한된 샘플을 사용해 D차 커브를 ﬁtting 한다. 따라서 데이터가 거의 없는 Boundary에서는 제한된 샘플로 많은 계수를 추정해야 하므로, 그 구간에서의 추정치의 분포가 자유도가 더 낮은 t분포를 따르니 신뢰구간이 더 클 수 밖에 없다. 
+<br><br>그래서 spline의 경우 끝단에서 선형 적합을 하여 이러한 문제를 완화하고자 한다. 이를 <strong>Natural Cubic Spiline</strong>이라 부른다. 
+<img src="https://user-images.githubusercontent.com/31824102/36486451-6a084090-1716-11e8-9a75-7bd49379e59f.PNG" style="zoom:77%;" />
+신뢰구간 범위가 좁아졌다. 이 경우 boundary에서 1차적합을 하기에, 각각 자유도 2씩을 잃어 $(K+4)-(2X2)$, 즉 $K$의 자유도를 갖게 된다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="7.4.4-Choosing-the-Number-and-Location-of-the-Knots">7.4.4 Choosing the Number and Location of the Knots<a class="anchor-link" href="#7.4.4-Choosing-the-Number-and-Location-of-the-Knots">&#182;</a></h2><p>그렇다면 몇개의 knots를 어디에 설정할지는 어떻게 정할까?</p>
+<ul>
+<li>자유도, 몇개의 knot를 설정할지를 정하는 데는 앞에서 나왔던 Cross-validation을 사용한다. CV error값이 가장 낮은 자유도의 갯수를 사용하는 것! 그림의 예시는 k-fold CV이고, 둘다 df=4가 적당해 보인다. 
+<img src="https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/7.4.4.JPG?raw=true" style="zoom:67%;" /></li>
+<li>그럼 어디에 설정해야 할까? 데이터가 급변하는 지점에는 flexible 할 수 있게 knot를 많이 배정하고, 아닌 부분에는 적은 수를 쓰면 좋을 것이다. 하지만 예측변수가 많을 경우에 어느 부분이 그러한지 알기 힘들 수도 있다. 
+<br>따라서 좀더 단순한 방법을 쓰자. 자유도를 설정하고, 이에 따라 균등한 quantile에 knot를 배정하는 것이다! 다음은 자유도 4의 경우다(intercept 포함해서 생각하면 5). <br>
+<img src="https://user-images.githubusercontent.com/31824102/36486450-69cc894c-1716-11e8-8a56-0e81c3dac086.PNG" style="zoom:77%;" />
+<br>자유도 4를 지정한 경우 natural cubic의 knot는 5개이기 때문에, boundary knot 2개를 제외하고, 3개의 knot들이 quantile에 따라 생겼다. 
+<br> 즉, 25th, 50th, 75th Q가 knot로 배정된 것이다. 이를 통해 데이터가 많은 부분에선 많은 knot들을 배정하여 잠재적으로 가질수 있는 non-linear형태를 반영하고, 자료들이 많지 않은 부분에선 적은 수의 knot들을 배정하려는 전략을 어느 정도 달성할 수 있다!</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="7.4.5-Comparison-to-Polynomial-Regression">7.4.5 Comparison to Polynomial Regression<a class="anchor-link" href="#7.4.5-Comparison-to-Polynomial-Regression">&#182;</a></h2><p>많은 경우 regression spline이 다항회귀보다 좋은 결과를 낸다.다항회귀는 flexiblility를 높이려면 차수를 지나치게 높여야 하는 반면, regression spline은 차수는 유지하면서 knot의 수를 늘려서 flexibility를 높일 수 있기 때문이다. 그래서 보통 regressoin spline이 안정된 추정을 한다. 
+<br><br>밑의 그림은 natural cubic spline과 15차항 적합을 한 polynomial regression을 비교한 것이다. 다항회귀는 지나친 flexibility로 끝쪽에서 회귀선이 요동친다.</p>
+<p><img src="https://user-images.githubusercontent.com/31824102/36486449-6991b966-1716-11e8-9be7-9deee4766b52.PNG" style="zoom:77%;" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="7.5-Smoothing-Spline">7.5 Smoothing Spline<a class="anchor-link" href="#7.5-Smoothing-Spline">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>7.5.1 Overview</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>관측된 데이터에 잘 맞는 어떤 함수를 찾는 것이 목표! 근데 제한없이 단순히 RSS를 최소화하는 함수를 찾는 것은 overfitting이 발생할 수 있다. 극단적으로 개별 data를 하나의 knot로 보는 등 모든 data를 통과하는 함수는 과적합 발생
+우리가 찾는 건 RSS를 최소화하면서 동시에 과적합하지 않는 smooth 함수!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Smoothing spline은 모든 data를 knot로 간주하면서 overfitting을 방지하는 spline이라고 생각하면 된다. 기존 RSS에 regularization term을 도입하여 그 값을 최소로 하는 함수를 찾는 것이고 해당 함수를 Smoothing spline이라고 한다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>함수를 찾는 식은 다음과 같다</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\sum_{i=1} ^{n} (y _{i} -g(x _{i} )) ^{2} + λ \int _{} ^{} {g ^{''}(t) ^{ 2}dt }$ 
+<br> 6장의 Ridge Lasso처럼 Loss + Penalty 형태!</p>
+<p>λ(lambda)는 음수가 아닌 tuning parameter</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>g의 2차 도함수는 기울기(g의 1차 도함수)가 변하는 정도(양) 즉 roughness의 측도이므로 그 적분값은 전체 범위에 걸친 기울기 총 변화량을 나타낸다. g가 smooth하면 적분값이 작을 것이고 g가 변동이 심한 경우는 큰 값을 가질 것이다. 이때 +/- 부호를 고려해서 제곱이 붙어있는 걸 볼 수 있다.
+λ가 0일때 penalty항이 없어지면서 기존 RSS와 똑같은 형태가 되며 g는 train set을 반영하려는 꾸불꾸불한 함수가 될 것이다. 반대로 λ가 커질수록 g는 선형 최소제곱선에 가까워질 것이다. 즉 λ값이 smoothing spline의 bias-variance tradeoff 역할을 한다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>위의 식을 최소로 하는 함수 g는 특별한 성질을 지닌다.(고 합니다)
+n개의 x값들에 knot가 있는 piecewise cubic polynomial + boundary 이외의 영역은 linear --&gt;&gt; 즉 natural cubic spline이다
+앞에서 배운 natural cubic spline과 완전히 같은 함수가 아닌 shrink된 함수라고 한다.(λ값에 따라 결정)
+Smoothing spline은 모든 input에 대해 knot를 가지고 있는 natural cubic spline을 shrinkage penalty를 hyperparameter λ​를 통해 조절해서 variance를 줄여주는 모델로도 볼 수 있는 것이다 (overfitting 억제)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>7.5.2 Choosing λ</strong></li>
+</ul>
+<p>smoothing spline이 모든 x값들에서 knot를 갖는 natural cubic spline이라면 너무 큰 flexibility(또는 자유도)를 갖는 건 아닐까??</p>
+<p><br>Tuning parameter λ가 이전 식에서 roughness를(2차 도함수의 적분) 제어함으로써(smooth) 유효자유도(effective degree of freedom)를 컨트롤. 구체적으로, λ가 0~무한대로 증가하면서 effective degree of freedom은 n에서 2로 감소.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Why "effective degrees of freedom"?
+보통 자유도는 추정해야 할 모수의 개수를 말한다. smoothing spline은 명목상 자유도가 n이지만 이들은 심하게 제한/축소된다. 따라서 같은 n개의 모수이더라도 shrink 정도에 따라 flexibility가 다르니까 이를 따로 표현하고자 하는 것이다. effective df는 smoothing spline의 유연성을 의미한다. 높을수록 유연하다(높은 분산, 낮은 편향) λ에 의해 제한을 받으므로 명목상의 자유도보다 작은 dfλ를 갖게 된다고 이해함.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$ hat{g_{λ}}=S _{λ} y $
+<br> 회귀분석에서 y_hat = Hy 와 같은 형태</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>여기서 g^는 x1,..,xn까지에 대해 적합된 n개의 적합값이다. Sλ는 y를 적합값(hat( 𝑔λ ))으로 표현하는 n X n의 matrix이다. 이때, 유효자유도는 dfλ=tr(Sλ)로 정의한다. 즉 대각원소들의 합이다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Regression spline과 다르게 Smoothing spline은 적합하는 데 매듭의 수는 n개이고 그 위치 또한 알고 있다. 다만 λ를 결정하는 문제가 남아있다.
+1) Cross Validation - 교차검증된 RSS가 가능한 한 작게 하는 lambda 값을 찾을 수 있다.
+2) LOOCV(leave-one-out) - i번째 관측치 제외한 나머지 data로 적합. i번째 관측치를 해당 함수에 넣어서 결과 예측. 이 과정을 data 갯수만큼 반복. 다들 기억하시죠?? 모든 데이터에 대한 원래 적합만을 이용하여 쉽게 계산할 수 있었다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/Lab7-5-0.png?raw=true'></img></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/Lab7-5-1.png?raw=true'></img></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>빨간 선은 유효자유도 16 가지는 smoothing spline이고 파란 선은 LOOCV를 이용하여 λ를 얻은 smoothing spline이다.(dfλ=6.8)
+거의 똑같다. 이 경우 단순한 모델로 충분히 설명이 되기 때문에 유효자유도가 더 작은 적합이 더 선호된다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="7.6-Local-Regression">7.6 Local Regression<a class="anchor-link" href="#7.6-Local-Regression">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Classification에서 배웠던 KNN과 유사한 개념. 특정 target을 잡고 그 주변 training data만을 사용하여 fitting</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>[Local Regression Algorithm]</p>
+<p><br> 1. $ x_{i}$가 $ x_{0}$에 가장 가까운 s(=k/n)개의 data를 모은다.
+<br> 2. 모은 점들에 가중치 $K_{i0}$=K($ x_{i}$,$ x_{0}$)를 할당한다. $ x_{0}$에 가까울수록 높은 가중치. s개의 data를 제외한 모든 점은 가중치가 0이다.
+<br> 3. 가중치를 이용해서 다음의 식을 최소로 하는 계수들을 찾음으로써 $ x_{i}$에 $y_{i}$의 가중 최소제곱회귀를 적합한다.</p>
+<p>$ \sum _ {i=1} ^{n} K _ {i0} (y _ {i} - β  _ {0} - β  _ {1} x _ {i} ) ^{2}$</p>
+<p><br> 4. $x_{0}$에서 적합한 값은 다음과 같이 주어진다.</p>
+<p>hat<em>f($x</em>{0}$)= hat_$β<em>{0}$ + hat</em>$β_{1}x_{0}$</p>
+<p>해당 과정을 모든 x 수준에 대해 반복한다. 각 적합값을 구할때마다 모든 traing data가 필요하기에, memory based 방식이라고도 한다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/Lab7-6-1.png?raw=true'></img></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>몇 가지 선택해야 할 것들이 있다.</p>
+<ul>
+<li>가중치 함수 K 정의(노란 bell-shaped curve 분포)</li>
+<li>Step 3에서 선형, 상수 또는 이차회귀 적합 여부( 상기의 식은 선형회귀)</li>
+<li>가장 중요한, s 값 설정</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>span s는 smoothing spline에서 tuning parameter lambda와 같은 역할을 하며 비선형적합의 유연성을 제어한다.(overfitting 방지)
+s값이 작으면 local의 작은 부분만 볼 것이기에 꾸불꾸불하게 fitting될 것이고
+반대로 s값이 크면 전체 데이터 중 많은 부분을 포함하기에 그보다는 smooth할 것이다.
+적절한 s값은 lambda와 마찬가지로 cross-validation을 이용한다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>설명변수가 여러 개인 상황에서, 다른 변수들에 대해서는 전역적이지만 시간과 같은 변수에는 국소적으로 local regression을 활용할 수 있다.
+최근에 수집된 데이터에 모델을 적응시키는 데 유용하다고 한다.
+여러 변수가 있을 때 단순히 nearest neighbor를 모아서 그 데이터들에 대해 fitting을 하면 된다. 다만 차원이 3,4,차원만 되어도 가까운 train data가 매우 적기 때문에 성능이 떨어진다는 단점이 있다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="7.7-Generalized-Additive-Models">7.7 Generalized Additive Models<a class="anchor-link" href="#7.7-Generalized-Additive-Models">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>이 때까지 7장에서 살펴본 내용은 설명변수 X 하나에 대해서 반응변수 Y를 유연하게(비선형) 예측하는 여러 방법들을 살펴보았다. 단순선형회귀의 확장으로 볼 수도 있다.
+<br> 여기서는 여러 설명변수($ X_{1} $ ~ $ X_{p} $)를 기반으로 Y를 예측하는 issue ; 다중선형회귀의 확장</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>일반화가법모델(GAMs)은 additivity를 유지하면서 각 변수에 non-linear하게 fitting하는 방법. 양적/질적 변수 모두 적용 가능</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>7.7.1 회귀문제에 대한 GAMs</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>다중선형회귀모델
+<br>
+$y_{i}$ = $β_{0}$ + $β_{1}$$x_{i1}$+ ... + $β_{p}$$x_{ip}$ + $ϵ_{i}$</p>
+<p>비선형함수 f로 확장(대체)
+<br>
+$y_{i}$ = $β_{0}$ + $f_{1}$($x_{i1}$)+ ... + $f_{p}$($x_{ip}$) + $ϵ_{i}$</p>
+<p><br>
+GAMs의 한 예시로서 각 X 수준에 대해 f값 계산하고 모두 더하기 때문에 additive라고 함(interaction term 없음)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>GAM은 지금까지 1차원 변수에 대해 다룬 여러 방법들을 building block으로써 활용하여 가법적인 모델을 만들수 있게 해준다.
+<br>
+wage =$β_{0}$ + $f_{1}$(year) + $f_{2}$(age) + $f_{3}$(education) + ϵ</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/Lab7-7-1.png?raw=true'></img></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>age, education이 고정인 상황에서 year와 함께 wage는 증가하는 경향이 있다.
+한편 year, educaiton이 고정일 때 중간 정도의 age에서 wage가 가장 높게 나타났다.
+마지막으로 year, age가 고정일 때 education이 증가하면서 wage 역시 증가하는 모습을 볼 수 있다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>natural spline과 달리(최소제곱법) smoothing spline의 경우에 GAM fitting은 간단하지 않다. 왜냐면 penalty항이 존재하니까 최소제곱이 사용될 수 없기 때문. 이때는 다른 예측 변수들을 고정시킨 채 순서대로 변수들을 업데이트 시키는 backfitting이라는 방법을 사용한다. 이는 각 변수를 적합할때 해당 변수를 제외한 나머지 변수들의 partial residual에 적합을 통해서 가능하다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/Lab7-7-2.png?raw=true'></img></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>위의 두 그림은 거의 차이가 없다. 사실 대부분의 경우, natural spline과 smoothing spline은 거의 결과차이가 없다. 또한, GAMs에서 위의 두 방식이 아닌 다른 방식을 사용해도 물론 된다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>GAMs의 장단점 (양적/질적 변수 모두 적용)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>1) 각 X 변수에 대해 비선형 함수를 fitting하여 표준 선형회귀로는 놓칠 비선형 관계를 모델링할 수 있다. 각 변수에 대해 일일이 변환을 할 필요가 없다.
+2) non linear fitting은 Y를 더 정확하게 예측할 가능성
+3) additive model이라서 Y에 대한 각 X 수준의 영향을 알 수 있다.(holding other things constant) 추론에 강점
+4) 각 X 변수에 대한 함수 f의 smoothness를 자유도로 나타낼 수 있다.
+5) additive라는 제한. 즉 interaction effect를 놓칠 수 있다. 그러나 선형회귀에서처럼 X1 * X2 형태의 추가적인 설명변수를 포함해서 수동으로 모델에 추가할 수 있다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>7.7.2 분류문제에 대한 GAMs</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>편의상 Y는 0 또는 1
+<br>
+p(X) = Pr(Y=1 | X)</p>
+<p><br>로지스틱 회귀모델
+<br>$log( { p(X)}/{1-p(X) })$ = $β_{0}$ + $β_{1}$$x_{1}$+ ... + $β_{p}$$x_{p}$</p>
+<p><br> 로지스틱 회귀 GAM (non-linear 확장)
+<br>$log( { p(X)}/{1-p(X) })$ = $β_{0}$ + $f_{1}$($x_{1}$)+ ... + $f_{p}$($x_{p}$)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$log( { p(X)}/{1-p(X) })$  = $β_{0}$ + $β_{1}$ x year + $f_{2}$(age) + $f_{3}$(education)
+<br> 이때 p(X) = Pr(wage&gt;250|year,age,education)
+<br> year는 단순선형회귀, age는 smoothing spline, education은 step function 적용</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='https://github.com/esj205/ESC_ML_STUDY/blob/master/LectureNote/pic/Lab7-7-3.png?raw=true'></img></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>additive의 특성으로 각 X 변수들의 영향을 개별적으로 살펴볼 수 있는데 year가 특히 income에 영향을 미치지 않는다는 걸 알 수 있다. age, education 패널의 경우 regression part 그래프와 어느 정도 유사하다.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># install.packages(&quot;ISLR&quot;)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">ISLR</span><span class="p">)</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># install.packages(&quot;ISLR&quot;)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">ISLR</span><span class="p">)</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span><span class="m">196</span><span class="p">)</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># install.packages(&quot;ISLR&quot;)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">ISLR</span><span class="p">)</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<div class=" highlight hl-r"><pre><span></span><span class="nf">attach</span><span class="p">(</span><span class="n">Auto</span><span class="p">)</span>
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">attach</span><span class="p">(</span><span class="n">Auto</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">attach</span><span class="p">(</span><span class="n">Auto</span><span class="p">)</span>
-=======
-<div class=" highlight hl-r"><pre><span></span><span class="nf">attach</span><span class="p">(</span><span class="n">Auto</span><span class="p">)</span>
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>The following object is masked from package:ggplot2:
-
-    mpg
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#linear regression</span>
-<span class="n">lm.fit</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#linear regression</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#linear regression</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-=======
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#linear regression</span>
-<span class="n">lm.fit</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-23.2660086465003
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># polynomial regressions</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># polynomial regressions</span>
-<span class="n">lm.fit2</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="n">lm.fit3</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># polynomial regressions</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-18.7164594933828
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-18.7940067973945
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use different training set</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span><span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># use different training set</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span><span class="m">196</span><span class="p">)</span>
-
-<span class="n">lm.fit</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit</span><span class="p">,</span><span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="n">lm.fit2</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="n">lm.fit3</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use different training set</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span><span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-25.7265106448139
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-20.4303642741463
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-20.3853268638776
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.1.2-Leave-One-Out-Cross-Validation-(LOOCV)">5.1.2 Leave-One-Out Cross-Validation (LOOCV)<a class="anchor-link" href="#5.1.2-Leave-One-Out-Cross-Validation-(LOOCV)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>개념</strong></p>
-<p><img src="./pic/fig5-3.png" alt=""></p>
-<p>LOOCV는 Validation Set Approach의 단점을 극복하기 위해 만들어진 방법입니다. 데이터셋을 비슷한 크기의 두 부분으로 나누는 Validation Set Approach와 달리, LOOCV에서는 단 하나의 관측치 $\left( x_1, y_1 \right)$ 만을 validation set으로 사용하고, 나머지 관측치들 $\{ \left( x_2, y_2 \right), ..., \left( x_n, y_n \right) \}$을 training set으로 사용합니다. 즉 LOOCV에서는 $n$개의 관측치를 가지고 있는 전체 데이터셋을 $n - 1$개의 관측치를 가지고 있는 training set과 1개의 관측치를 가지고 있는 validation set 두 부분으로 나눕니다. 모델은 $n - 1$개의 관측치를 가지고 있는 training set에 fitting하고, training set에 포함되지 않은 관측치인 $x_1$을 사용하여 $\hat{y}_1$을 만듭니다. $MSE_1 = (y_1-\hat{y}_1)$은 $\left( x_1, y_1 \right)$이 fitting에 사용되지 않았기 때문에 test error에 대해 bias가 없는 추정치를 제공합니다. 하지만 비록 $MSE_1$이 test error에 대해 bias가 없다 하더라도, $MSE_1$은 단 하나의 관측치 $\left( x_1, y_1 \right)$에 기반한 값이기 때문에 variability가 높아 좋은 추정치라고 볼 수는 없습니다. 따라서 우리는 validation set을 $\left( x_1, y_1 \right)$부터 $\left( x_n, y_n \right)$까지 반복적으로 선택하여 위 과정을 $n$번 반복합니다. 그 결과 $MSE_1, ..., MSE_n$을 얻을 수 있고, LOOCV에서는 이러한 $n$개의 test error의 추정치에 대한 평균을 test error의 추정치로 사용합니다.</p>
-$$ CV_{\left( n \right)} = \frac{1}{n} \sum_{i=1}^n MSE_i $$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>장점</strong></p>
-<ol>
-<li>LOOCV는 Validation Set Approach에 비해 훨씬 더 낮은 bias를 갖습니다.</li>
-<li>training set과 validation set을 나누는 과정에서 랜덤성이 있어 매번 다른 결과를 산출해내는 Validation Set Approach와는 달리, LOOCV는 training set과 validation set을 나누는 과정에서 랜덤성이 없어 항상 같은 결과를 산출해냅니다.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Lab 5.3.2 Leave-One-Out Cross-Validation</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># lm and glm without passing in the family argument are identical</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># lm and glm without passing in the family argument are identical</span>
-<span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="nf">coef</span><span class="p">(</span><span class="n">glm.fit</span><span class="p">)</span>
-<span class="n">lm.fit</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="nf">coef</span><span class="p">(</span><span class="n">lm.fit</span><span class="p">)</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># lm and glm without passing in the family argument are identical</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>39.9358610211705</dd><dt>horsepower</dt><dd>-0.157844733353654</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>39.9358610211705</dd><dt>horsepower</dt><dd>-0.157844733353654</dd></dl>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">library</span><span class="p">(</span><span class="n">boot</span><span class="p">)</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="err">$</span><span class="n">delta</span> <span class="c1"># delta vector contains cross-validation results:</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">boot</span><span class="p">)</span>
-<span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">cv.err</span><span class="o">=</span><span class="nf">cv.glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm.fit</span><span class="p">)</span>
-<span class="n">cv.err</span><span class="o">$</span><span class="n">delta</span> <span class="c1"># delta vector contains cross-validation results:</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">library</span><span class="p">(</span><span class="n">boot</span><span class="p">)</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="err">$</span><span class="n">delta</span> <span class="c1"># delta vector contains cross-validation results:</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<span class="c1"># delta=[standard k-fold CV estimate, bias-corrected CV estimate]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>24.2315135179293</li><li>24.2311440937562</li></ol>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use for loop for polynomial regressions</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># use for loop for polynomial regressions</span>
-<span class="n">cv.error</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">5</span><span class="p">)</span>
-<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv.error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nf">cv.glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm.fit</span><span class="p">)</span><span class="o">$</span><span class="n">delta</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv.error</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use for loop for polynomial regressions</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>24.2315135179292</li><li>19.2482131244897</li><li>19.3349840640291</li><li>19.4244303104303</li><li>19.0332138547041</li></ol>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.1.3-k-Fold-Cross-Validation-(k-Fold-CV)">5.1.3 k-Fold Cross-Validation (k-Fold CV)<a class="anchor-link" href="#5.1.3-k-Fold-Cross-Validation-(k-Fold-CV)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>개념</strong></p>
-<p><img src="./pic/fig5-5.png" alt=""></p>
-<p>k-Fold CV는 LOOCV에 대한 대안으로 등장했습니다. k-Fold CV에서는 전체 데이터셋을 거의 같은 크기의 $k$개의 fold로 무작위로 나눕니다. 먼저 첫번째 fold를 validation set으로 나머지 $k-1$개의 fold를 training set으로 사용합니다. 즉 모델은 training set에 fitting하고, 첫번째 fold인 validation set을 사용하여 $MSE_1$을 계산합니다. 다음으로 두번째 fold를 validation set으로 나머지 $k-1$개의 fold를 training set으로 사용합니다. 즉 모델은 training set에 fitting하고, 두번째 fold인 validation set을 사용하여 $MSE_2$을 계산합니다. 이러한 과정을 $k$번 반복합니다. 그 결과 $MSE_1, ..., MSE_k$를 얻을 수 있고, k-Fold CV에서는 이러한 $k$개의 test error의 추정치에 대한 평균을 test error의 추정치로 사용합니다.</p>
-$$CV_{\left( k \right)} = \frac{1}{k} \sum_{i=1}^k MSE_i$$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>LOOCV vs. k-Fold CV</strong></p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<p>LOOCV는 k-Fold CV의 하나의 특별한 케이스에 해당된다는 것을 볼 수 있다. 즉 LOOCV는 $k = n$일 때의 k-Fold CV와 같다.</p>
-=======
-<p>LOOCV는 k-Fold CV의 하나의 특별한 케이스에 해당된다는 것을 볼 수 있습니다. 즉 LOOCV는 $k = n$일 때의 k-Fold CV와 같습니다.</p>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
-<p>LOOCV는 k-Fold CV의 하나의 특별한 케이스에 해당된다는 것을 볼 수 있습니다. 즉 LOOCV는 $k = n$일 때의 k-Fold CV와 같습니다.</p>
-=======
-<p>LOOCV는 k-Fold CV의 하나의 특별한 케이스에 해당된다는 것을 볼 수 있다. 즉 LOOCV는 $k = n$일 때의 k-Fold CV와 같다.</p>
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<p><img src="./pic/fig5-6.png" alt=""></p>
-<center>blue line =  true test MSE / black line =  LOOCV test MSE 추정치 / orange line = 10-fold CV test MSE 추정치</center>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>장점</strong></p>
-<ol>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<li>k-Fold CV는 LOOCV에 비해 computational하다.</li>
-<li>k-Fold CV는 LOOCV에 비해 더 정확한 test error의 추정치를 제공한다. (5.1.4에서 상세 설명)</li>
-=======
-<li>k-Fold CV는 LOOCV에 비해 computational합니다.</li>
-<li>k-Fold CV는 LOOCV에 비해 더 정확한 test error의 추정치를 제공합니다. (5.1.4에서 상세 설명)</li>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
-<li>k-Fold CV는 LOOCV에 비해 computational합니다.</li>
-<li>k-Fold CV는 LOOCV에 비해 더 정확한 test error의 추정치를 제공합니다. (5.1.4에서 상세 설명)</li>
-=======
-<li>k-Fold CV는 LOOCV에 비해 computational하다.</li>
-<li>k-Fold CV는 LOOCV에 비해 더 정확한 test error의 추정치를 제공한다. (5.1.4에서 상세 설명)</li>
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Lab 5.3.3 k-Fold Cross-Validation</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
-
-<span class="c1"># use k=10 and perform polynomial fits of orders one to ten</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">){</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">17</span><span class="p">)</span>
-
-<span class="c1"># use k=10 and perform polynomial fits of orders one to ten</span>
-<span class="n">cv.error.10</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">10</span><span class="p">)</span>
-<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">){</span>
-    <span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv.error.10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nf">cv.glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm.fit</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="m">10</span><span class="p">)</span><span class="o">$</span><span class="n">delta</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv.error.10</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
-
-<span class="c1"># use k=10 and perform polynomial fits of orders one to ten</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">){</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<span class="c1"># much shorter computation time because cv.glm doesn&#39;t use the shortcut for LOOCV</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>24.2720671232254</li><li>19.2690928085129</li><li>19.3480535605547</li><li>19.2949648229745</li><li>19.0319790002896</li><li>18.8978121056401</li><li>19.1206066690695</li><li>19.1466631054789</li><li>18.8701307442148</li><li>20.9552042280369</li></ol>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.2-The-Bootstrap">5.2 The Bootstrap<a class="anchor-link" href="#5.2-The-Bootstrap">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Bootstrap은 주어진 추정치 또는 모델과 관련된 불확실성을 계량화하는 데에 사용됩니다. 예를 들어, Bootstrap을 선형 회귀 계수의 standard error를 추정하는 데에 사용할 수 있습니다.</p>
-<p>우리가 고정된 자금을 두가지 금융자산에 투자하려고 한다고 가정해봅시다. 우리는 돈의 $\alpha$만큼을  $X$에, 나머지 $1 - \alpha$만큼을 $Y$에 투자할 것입니다. 우리는 투자의 리스크, 즉 variance를 최소화하는 $\alpha$를 선택하고자 할 것입니다. 다시 말해 우리는 $Var(\alpha X + \left( 1 - \alpha \right) Y)$를 최소화하기를 원합니다. 이를 최소화하는 $\alpha$는 다음과 같습니다.</p>
-$$ \alpha = \frac{\sigma_Y^2 - \sigma_{XY}}{\sigma_X^2 + \sigma_Y^2 - 2 \sigma_{XY}} $$<p>- $\sigma_X^2$ : $Var(X)$<br>
-- $\sigma_Y^2$ : $Var(Y)$<br>
-- $\sigma_{XY}$ : $Cov(X,Y)$</p>
-<p>하지만 현실에서 $\sigma_X^2$, $\sigma_Y^2$, $\sigma_{XY}$는 알려지지 않은 값이므로 우리는 데이터셋을 사용하여 이들의 추정치인 $\hat{\sigma}_X^2$, $\hat{\sigma}_Y^2$, $\hat{\sigma}_{XY}$를 계산합니다. 그러면 우리는 다음과 같이 우리의 투자의 variance를 최소화하는 $\alpha$값을 추정할 수 있을 것입니다.</p>
-$$ \hat{\alpha} = \frac{\hat{\sigma}_Y^2 - \hat{\sigma}_{XY}}{\hat{\sigma}_X^2 + \hat{\sigma}_Y^2 - 2 \hat{\sigma}_{XY}} $$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><em>(참고용 시작)</em></p>
-<p><img src="./pic/fig5-9.png" alt=""></p>
-<p>위 그림에서 각각의 그래프는 simulated 데이터셋, 즉 시뮬레이션을 통해 생성된 100쌍의 $X$, $Y$ 관측치를 나타냅니다. 먼저 이 100쌍의 $X$, $Y$ 관측치를 사용하여 $\sigma_X^2$, $\sigma_Y^2$, $\sigma_{XY}$를 추정하고 ($\hat{\sigma}_X^2$, $\hat{\sigma}_Y^2$, $\hat{\sigma}_{XY}$를 계산하고), 위의 식을 통해 $\alpha$를 추정합니다 ($\hat{\alpha}$를 계산합니다). 각각의 simulated 데이터셋에서 결과로 나온 $\hat{\alpha}$값은 0.532 ~ 0.657 범위에 존재합니다.</p>
-<p>이제 $\alpha$의 추정치 즉 $\hat{\alpha}$의 정확도에 대해 살펴보고자 합니다. $\hat{\alpha}$의 standard deviation를 추정하기 위해, 시뮬레이션을 통해 100쌍의 $X$, $Y$ 관측치를 생성하는 위 과정을 1000번 반복합니다. 그 결과 1000개의 $\alpha$에 대한 추정치, 즉 $\hat{\alpha}_1, \hat{\alpha}_2, ..., \hat{\alpha}_{1000}$을 얻을 수 있습니다.</p>
-<p><img src="./pic/fig5-10.png" alt=""></p>
-<p>- 왼쪽 그림 : A histogram of the estimates of α obtained by generating 1,000 simulated data sets from the true population.<br>
-- 가운데 그림 : A histogram of the estimates of α obtained from 1,000 bootstrap samples from a single data set.<br>
-- 오른쪽 그림 : The estimates of α displayed in the left and center panels are shown as boxplots.</p>
-<p>왼쪽 그림은 결과로 나온 $\alpha$에 대한 추정치 1000개를 히스토그램으로 표현한 것입니다. 이 시뮬레이션에서 매개변수는 $\sigma_{X}^2 = 1$, $\sigma_{Y}^2 = 1.25$, $\sigma_{XY} = 0.5$로 설정되었는데, 이를 통해 $\alpha$의 실제값은 0.6임을 알 수 있습니다. 이 값은 위 그림에서 분홍색 선으로 표시되어 있습니다.</p>
-<p>$\alpha$에 대한 추정치 1000개의 평균은 다음과 같습니다.</p>
-$$ \bar{\alpha} = \frac{1}{1000} \sum_{r=1}^{1000} \hat{\alpha}_r = 0.5996 $$<p>이때 $\bar{\alpha}$의 값이 $\alpha$의 실제값인 0.6에 매우 가깝다는 것을 확인할 수 있습니다.</p>
-<p>추정치의 standard deviation은 다음과 같습니다.</p>
-$$ \sqrt{\frac{1}{1000-1} \sum_{r=1}^{1000} \left( \hat{\alpha}_r - \bar{\alpha} \right) ^ 2} $$<p>$SE \left( \hat{\alpha} \right) \approx 0.083$로, 이를 통해 $\hat{\alpha}$의 정확도를 알 수 있습니다. 대략적으로, 모집단으로부터 무작위로 추출한 표본에 대하여, 평균적으로 $\hat{\alpha}$은 $\alpha$와 약 0.08만큼 차이가 날 것이라고 생각해볼 수 있습니다.</p>
-<p><em>(참고용 끝)</em></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>개념</strong></p>
-<p>그러나 실제 데이터의 경우 모집단으로부터 새로운 표본을 생성할 수 없기 때문에 앞서 설명한 $SE \left( \hat{\alpha} \right)$에 대해 추정하는 과정은 현실에서는 적용될 수 없습니다. <U>이때 Bootstrap은 추가적으로 관측치를 생성하지 않아도 $\hat{\alpha}$의 variability를 추정할 수 있도록 합니다.</U> 다시 말해, Bootstrap은 모집단으로부터 반복적으로 독립적인 데이터셋을 얻는 대신 <U>오리지널 데이터셋으로부터 반복적으로 관측치를 추출하여 데이터셋을 얻습니다.</U></p>
-<p><img src="./pic/fig5-11.png" alt=""></p>
-<p>오리지널 데이터셋 $Z$는 3개의 관측치를 가진 데이터셋입니다. 먼저 오리지널 데이터셋 $Z$로부터 무작위로 $n$개의 관측치를 선택하여 (복원추출) 부트스트랩 데이터셋 $Z^{*1}$을 생성합니다. $Z^{*1}$은 세번째 관측치를 2번, 첫번째 관측치를 1번, 두번째 관측치를 0번 포함합니다. $Z^{*1}$을 사용하여 $\alpha$에 대한 새로운 부트스트랩 추정치, 즉 $\hat{\alpha}^{*1}$를 생성합니다. 이 과정을 $B번$ 반복하여 $B$개의 서로 다른 부트스트랩 데이터셋 $Z^{*1}, Z^{*2}, ..., Z^{*B}$를 생성하고, 이를 사용하여 $B$개의 부트스트랩 추정치 $\hat{\alpha}^{*1}, \hat{\alpha}^{*2}, ..., \hat{\alpha}^{*B}$를 생성합니다. 이러한 부트스트랩 추정치에 대한 standard error는 다음과 같습니다.</p>
-$$ SE_B \left( \hat{\alpha} \right) = \sqrt{\frac{1}{B-1} \sum_{r=1}^B \left(\hat{\alpha}^{*r} - \frac{1}{B} \sum_{r=1}^B \hat{\alpha}^{*r'} \right)^2} $$<p>이 $SE_B \left( \hat{\alpha} \right)$를 오리지널 데이터셋으로부터 추정된 $\hat{\alpha}$의 standard error에 대한 추정치로 사용합니다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Lab 5.3.4 The Bootstrap</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Estimating the Accuracy of a Statistic of Interest</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="p">){</span>
-    <span class="n">X</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">X</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="n">Y</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">Y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">((</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">var</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">+</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)))</span>
-<span class="p">}</span>
-
-<span class="c1"># use all 100 obs</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># use sample function for bootstrap sampling</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span> <span class="c1">#select 100 obs from range 1 to 100 with replacement</span>
-
-<span class="c1"># use boot function R=1000</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1">## Estimating the Accuracy of a Statistic of Interest</span>
-<span class="n">alpha.fn</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="p">){</span>
-    <span class="n">X</span><span class="o">=</span><span class="n">data</span><span class="o">$</span><span class="n">X</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="n">Y</span><span class="o">=</span><span class="n">data</span><span class="o">$</span><span class="n">Y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="nf">return </span><span class="p">((</span><span class="nf">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="nf">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">+</span><span class="nf">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="m">-2</span><span class="o">*</span><span class="nf">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)))</span>
-<span class="p">}</span>
-
-<span class="c1"># use all 100 obs</span>
-<span class="nf">alpha.fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">)</span>
-
-<span class="c1"># use sample function for bootstrap sampling</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="nf">alpha.fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span> <span class="c1">#select 100 obs from range 1 to 100 with replacement</span>
-
-<span class="c1"># use boot function R=1000</span>
-<span class="nf">boot</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">alpha.fn</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="m">1000</span><span class="p">)</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Estimating the Accuracy of a Statistic of Interest</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="p">){</span>
-    <span class="n">X</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">X</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="n">Y</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">Y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">((</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">var</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">+</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)))</span>
-<span class="p">}</span>
-
-<span class="c1"># use all 100 obs</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">)</span>
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
-
-<span class="c1">## Estimating the Accuracy of a Linear Regression Model</span>
-
-<span class="c1"># estimates of parameters usual linear regression</span>
-<<<<<<< HEAD
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">)))</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">392</span><span class="p">)</span>
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-
-<span class="c1"># use sample function for bootstrap sampling</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span> <span class="c1">#select 100 obs from range 1 to 100 with replacement</span>
-
-<span class="c1"># use boot function R=1000</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-
-<span class="c1">## Estimating the Accuracy of a Linear Regression Model</span>
-
-<<<<<<< HEAD
-<span class="c1"># estimates of parameters usual linear regression</span>
-<<<<<<< HEAD
-=======
-<span class="c1"># bootstrap for quadratic model</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="n">coefficients</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">))</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="err">$</span><span class="n">coef</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<span class="n">boot.fn</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="nf">return </span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">)))</span>
-<span class="nf">boot.fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">392</span><span class="p">)</span>
-
-<span class="c1"># create bootstrap estimates </span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="nf">boot.fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span> <span class="m">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
-<span class="nf">boot.fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span> <span class="m">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
-
-<span class="c1"># compute SE of 1000 bootstrap estimates</span>
-<span class="nf">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot.fn</span><span class="p">,</span> <span class="m">1000</span><span class="p">)</span>
-
-<span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="o">$</span><span class="n">coef</span>
-
-<span class="c1"># bootstrap for quadratic model</span>
-<span class="n">boot.fn</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="nf">coefficients</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">))</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="nf">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot.fn</span><span class="p">,</span> <span class="m">1000</span><span class="p">)</span>
-<span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="o">$</span><span class="n">coef</span>
-<<<<<<< HEAD
-=======
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">)))</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">392</span><span class="p">)</span>
-
-<span class="c1"># create bootstrap estimates </span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span> <span class="mi">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span> <span class="mi">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span>
-
-<span class="c1"># compute SE of 1000 bootstrap estimates</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-
-<span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="err">$</span><span class="n">coef</span>
-
-<span class="c1"># bootstrap for quadratic model</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="n">coefficients</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">))</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="err">$</span><span class="n">coef</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-0.57583207459283
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-0.736837501928544
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>
-ORDINARY NONPARAMETRIC BOOTSTRAP
-
-
-Call:
-boot(data = Portfolio, statistic = alpha.fn, R = 1000)
-
-
-Bootstrap Statistics :
-     original       bias    std. error
-t1* 0.5758321 -0.001695873  0.09366347</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>39.9358610211705</dd><dt>horsepower</dt><dd>-0.157844733353654</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>40.3404516830189</dd><dt>horsepower</dt><dd>-0.163486837689938</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>40.1186906449022</dd><dt>horsepower</dt><dd>-0.157706320543503</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>
-ORDINARY NONPARAMETRIC BOOTSTRAP
-
-
-Call:
-boot(data = Auto, statistic = boot.fn, R = 1000)
-
-
-Bootstrap Statistics :
-      original        bias    std. error
-t1* 39.9358610  0.0544513229 0.841289790
-t2* -0.1578447 -0.0006170901 0.007343073</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<caption>A matrix: 2 × 4 of type dbl</caption>
-<thead>
-	<tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Pr(&gt;|t|)</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>(Intercept)</th><td>39.9358610</td><td>0.717498656</td><td> 55.65984</td><td>1.220362e-187</td></tr>
-	<tr><th scope=row>horsepower</th><td>-0.1578447</td><td>0.006445501</td><td>-24.48914</td><td> 7.031989e-81</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>
-ORDINARY NONPARAMETRIC BOOTSTRAP
-
-
-Call:
-boot(data = Auto, statistic = boot.fn, R = 1000)
-
-
-Bootstrap Statistics :
-        original        bias     std. error
-t1* 56.900099702  3.511640e-02 2.0300222526
-t2* -0.466189630 -7.080834e-04 0.0324241984
-t3*  0.001230536  2.840324e-06 0.0001172164</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<caption>A matrix: 3 × 4 of type dbl</caption>
-<thead>
-	<tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Pr(&gt;|t|)</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>(Intercept)</th><td>56.900099702</td><td>1.8004268063</td><td> 31.60367</td><td>1.740911e-109</td></tr>
-	<tr><th scope=row>horsepower</th><td>-0.466189630</td><td>0.0311246171</td><td>-14.97816</td><td> 2.289429e-40</td></tr>
-	<tr><th scope=row>I(horsepower^2)</th><td> 0.001230536</td><td>0.0001220759</td><td> 10.08009</td><td> 2.196340e-21</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.3-Lab">5.3 Lab<a class="anchor-link" href="#5.3-Lab">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.3.1-The-Validation-Set-Approach">5.3.1 The Validation Set Approach<a class="anchor-link" href="#5.3.1-The-Validation-Set-Approach">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># install.packages(&quot;ISLR&quot;)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">ISLR</span><span class="p">)</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
-
-<span class="c1"># linear regression</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-
-<span class="n">attach</span><span class="p">(</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># polynomial regressions</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># use different training set</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span><span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># install.packages(&quot;ISLR&quot;)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">ISLR</span><span class="p">)</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span><span class="m">196</span><span class="p">)</span>
-
-<span class="c1"># linear regression</span>
-<span class="n">lm.fit</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-
-<span class="nf">attach</span><span class="p">(</span><span class="n">Auto</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="c1"># polynomial regressions</span>
-<span class="n">lm.fit2</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="n">lm.fit3</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="c1"># use different training set</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span><span class="m">196</span><span class="p">)</span>
-
-<span class="n">lm.fit</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit</span><span class="p">,</span><span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="n">lm.fit2</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-
-<span class="n">lm.fit3</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="nf">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="nf">predict</span><span class="p">(</span><span class="n">lm.fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># install.packages(&quot;ISLR&quot;)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">ISLR</span><span class="p">)</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
-
-<span class="c1"># linear regression</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-
-<span class="n">attach</span><span class="p">(</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># polynomial regressions</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># use different training set</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">train</span><span class="o">=</span><span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span><span class="mi">196</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span><span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit2</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
-<span class="n">mean</span><span class="p">((</span><span class="n">mpg</span><span class="o">-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit3</span><span class="p">,</span> <span class="n">Auto</span><span class="p">))[</span><span class="o">-</span><span class="n">train</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>The following objects are masked from Auto (pos = 4):
-
-    acceleration, cylinders, displacement, horsepower, mpg, name,
-    origin, weight, year
-
-
-The following object is masked from package:ggplot2:
-
-    mpg
-
-
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-23.2660086465003
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-18.7164594933828
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-18.7940067973945
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-25.7265106448139
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-20.4303642741463
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-20.3853268638776
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.3.2-Leave-One-Out-Cross-Validation">5.3.2 Leave-One-Out Cross-Validation<a class="anchor-link" href="#5.3.2-Leave-One-Out-Cross-Validation">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># lm and glm without passing in the family argument are identical</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-
-<span class="n">library</span><span class="p">(</span><span class="n">boot</span><span class="p">)</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="err">$</span><span class="n">delta</span> <span class="c1"># delta vector contains cross-validation results:</span>
-<span class="c1"># delta=[standard k-fold CV estimate, bias-corrected CV estimate]</span>
-
-<span class="c1"># use for loop for polynomial regressions</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># lm and glm without passing in the family argument are identical</span>
-<span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="nf">coef</span><span class="p">(</span><span class="n">glm.fit</span><span class="p">)</span>
-
-<span class="n">lm.fit</span><span class="o">=</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="nf">coef</span><span class="p">(</span><span class="n">lm.fit</span><span class="p">)</span>
-
-<span class="nf">library</span><span class="p">(</span><span class="n">boot</span><span class="p">)</span>
-<span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">cv.err</span><span class="o">=</span><span class="nf">cv.glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm.fit</span><span class="p">)</span>
-<span class="n">cv.err</span><span class="o">$</span><span class="n">delta</span> <span class="c1"># delta vector contains cross-validation results:</span>
-<span class="c1"># delta=[standard k-fold CV estimate, bias-corrected CV estimate]</span>
-
-<span class="c1"># use for loop for polynomial regressions</span>
-<span class="n">cv.error</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">5</span><span class="p">)</span>
-<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv.error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nf">cv.glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm.fit</span><span class="p">)</span><span class="o">$</span><span class="n">delta</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv.error</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># lm and glm without passing in the family argument are identical</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-
-<span class="n">library</span><span class="p">(</span><span class="n">boot</span><span class="p">)</span>
-<span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">err</span><span class="err">$</span><span class="n">delta</span> <span class="c1"># delta vector contains cross-validation results:</span>
-<span class="c1"># delta=[standard k-fold CV estimate, bias-corrected CV estimate]</span>
-
-<span class="c1"># use for loop for polynomial regressions</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>39.9358610211705</dd><dt>horsepower</dt><dd>-0.157844733353654</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>39.9358610211705</dd><dt>horsepower</dt><dd>-0.157844733353654</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>24.2315135179293</li><li>24.2311440937562</li></ol>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>24.2315135179292</li><li>19.2482131244897</li><li>19.3349840640291</li><li>19.4244303104303</li><li>19.0332138547041</li></ol>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.3.3-k-Fold-Cross-Validation">5.3.3 k-Fold Cross-Validation<a class="anchor-link" href="#5.3.3-k-Fold-Cross-Validation">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
-
-<span class="c1"># use k=10 and perform polynomial fits of orders one to ten</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">){</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">17</span><span class="p">)</span>
-
-<span class="c1"># use k=10 and perform polynomial fits of orders one to ten</span>
-<span class="n">cv.error.10</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">10</span><span class="p">)</span>
-<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">){</span>
-    <span class="n">glm.fit</span><span class="o">=</span><span class="nf">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="nf">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv.error.10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nf">cv.glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm.fit</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="m">10</span><span class="p">)</span><span class="o">$</span><span class="n">delta</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv.error.10</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
-
-<span class="c1"># use k=10 and perform polynomial fits of orders one to ten</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="o">=</span><span class="n">rep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">){</span>
-    <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="o">=</span><span class="n">glm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">poly</span><span class="p">(</span><span class="n">horsepower</span><span class="p">,</span><span class="n">i</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">)</span>
-    <span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">glm</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="err">$</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">cv</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="mi">10</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<span class="c1"># much shorter computation time because cv.glm doesn&#39;t use the shortcut for LOOCV</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>24.2720671232254</li><li>19.2690928085129</li><li>19.3480535605547</li><li>19.2949648229745</li><li>19.0319790002896</li><li>18.8978121056401</li><li>19.1206066690695</li><li>19.1466631054789</li><li>18.8701307442148</li><li>20.9552042280369</li></ol>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.3.4-The-Bootstrap">5.3.4 The Bootstrap<a class="anchor-link" href="#5.3.4-The-Bootstrap">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Estimating the Accuracy of a Statistic of Interest</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="p">){</span>
-    <span class="n">X</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">X</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="n">Y</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">Y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">((</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">var</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">+</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)))</span>
-<span class="p">}</span>
-
-<span class="c1"># use all 100 obs</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># use sample function for bootstrap sampling</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span> <span class="c1">#select 100 obs from range 1 to 100 with replacement</span>
-
-<span class="c1"># use boot function R=1000</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<div class=" highlight hl-r"><pre><span></span><span class="c1">## Estimating the Accuracy of a Statistic of Interest</span>
-<span class="n">alpha.fn</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="p">){</span>
-    <span class="n">X</span><span class="o">=</span><span class="n">data</span><span class="o">$</span><span class="n">X</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="n">Y</span><span class="o">=</span><span class="n">data</span><span class="o">$</span><span class="n">Y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="nf">return </span><span class="p">((</span><span class="nf">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="nf">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">+</span><span class="nf">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="m">-2</span><span class="o">*</span><span class="nf">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)))</span>
-<span class="p">}</span>
-
-<span class="c1"># use all 100 obs</span>
-<span class="nf">alpha.fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">)</span>
-
-<span class="c1"># use sample function for bootstrap sampling</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="nf">alpha.fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span> <span class="c1">#select 100 obs from range 1 to 100 with replacement</span>
-
-<span class="c1"># use boot function R=1000</span>
-<span class="nf">boot</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">alpha.fn</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="m">1000</span><span class="p">)</span>
-<<<<<<< HEAD
-=======
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Estimating the Accuracy of a Statistic of Interest</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="p">){</span>
-    <span class="n">X</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">X</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="n">Y</span><span class="o">=</span><span class="n">data</span><span class="err">$</span><span class="n">Y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">((</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">var</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">+</span><span class="n">var</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)))</span>
-<span class="p">}</span>
-
-<span class="c1"># use all 100 obs</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">)</span>
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
-
-<span class="c1">## Estimating the Accuracy of a Linear Regression Model</span>
-
-<span class="c1"># estimates of parameters usual linear regression</span>
-<<<<<<< HEAD
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">)))</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">392</span><span class="p">)</span>
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-
-<span class="c1"># use sample function for bootstrap sampling</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span> <span class="c1">#select 100 obs from range 1 to 100 with replacement</span>
-
-<span class="c1"># use boot function R=1000</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Portfolio</span><span class="p">,</span> <span class="n">alpha</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-
-<span class="c1">## Estimating the Accuracy of a Linear Regression Model</span>
-
-<<<<<<< HEAD
-<span class="c1"># estimates of parameters usual linear regression</span>
-<<<<<<< HEAD
-=======
-<span class="c1"># bootstrap for quadratic model</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="n">coefficients</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">))</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="err">$</span><span class="n">coef</span>
-=======
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-<span class="n">boot.fn</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="nf">return </span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">)))</span>
-<span class="nf">boot.fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">392</span><span class="p">)</span>
-
-<span class="c1"># create bootstrap estimates </span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="nf">boot.fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span> <span class="m">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
-<span class="nf">boot.fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="m">392</span><span class="p">,</span> <span class="m">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">T</span><span class="p">))</span>
-
-<span class="c1"># compute SE of 1000 bootstrap estimates</span>
-<span class="nf">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot.fn</span><span class="p">,</span> <span class="m">1000</span><span class="p">)</span>
-
-<span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="o">$</span><span class="n">coef</span>
-
-<span class="c1"># bootstrap for quadratic model</span>
-<span class="n">boot.fn</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="nf">coefficients</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">))</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-<span class="nf">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot.fn</span><span class="p">,</span> <span class="m">1000</span><span class="p">)</span>
-<span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="nf">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="m">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="o">$</span><span class="n">coef</span>
-<<<<<<< HEAD
-=======
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">coef</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">)))</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">392</span><span class="p">)</span>
-
-<span class="c1"># create bootstrap estimates </span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span> <span class="mi">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">sample</span><span class="p">(</span><span class="mi">392</span><span class="p">,</span> <span class="mi">392</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="n">T</span><span class="p">))</span>
-
-<span class="c1"># compute SE of 1000 bootstrap estimates</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-
-<span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="err">$</span><span class="n">coef</span>
-
-<span class="c1"># bootstrap for quadratic model</span>
-<span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="n">coefficients</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">index</span><span class="p">))</span>
-<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">boot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="n">boot</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="n">summary</span><span class="p">(</span><span class="n">lm</span><span class="p">(</span><span class="n">mpg</span><span class="o">~</span><span class="n">horsepower</span><span class="o">+</span><span class="n">I</span><span class="p">(</span><span class="n">horsepower</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">))</span><span class="err">$</span><span class="n">coef</span>
->>>>>>> c6b943ff937365ec68258292c6ec4d5c07665b30
-=======
->>>>>>> c3b48e2e731ea40016100f80a9306e9b01c96bb0
->>>>>>> e5a93dbf886ca4c11cd35424abaca5d05ac72bc7
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-0.57583207459283
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-0.736837501928544
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>
-ORDINARY NONPARAMETRIC BOOTSTRAP
-
-
-Call:
-boot(data = Portfolio, statistic = alpha.fn, R = 1000)
-
-
-Bootstrap Statistics :
-     original       bias    std. error
-t1* 0.5758321 -0.001695873  0.09366347</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>39.9358610211705</dd><dt>horsepower</dt><dd>-0.157844733353654</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>40.3404516830189</dd><dt>horsepower</dt><dd>-0.163486837689938</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>(Intercept)</dt><dd>40.1186906449022</dd><dt>horsepower</dt><dd>-0.157706320543503</dd></dl>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>
-ORDINARY NONPARAMETRIC BOOTSTRAP
-
-
-Call:
-boot(data = Auto, statistic = boot.fn, R = 1000)
-
-
-Bootstrap Statistics :
-      original        bias    std. error
-t1* 39.9358610  0.0544513229 0.841289790
-t2* -0.1578447 -0.0006170901 0.007343073</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<caption>A matrix: 2 × 4 of type dbl</caption>
-<thead>
-	<tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Pr(&gt;|t|)</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>(Intercept)</th><td>39.9358610</td><td>0.717498656</td><td> 55.65984</td><td>1.220362e-187</td></tr>
-	<tr><th scope=row>horsepower</th><td>-0.1578447</td><td>0.006445501</td><td>-24.48914</td><td> 7.031989e-81</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>
-ORDINARY NONPARAMETRIC BOOTSTRAP
-
-
-Call:
-boot(data = Auto, statistic = boot.fn, R = 1000)
-
-
-Bootstrap Statistics :
-        original        bias     std. error
-t1* 56.900099702  3.511640e-02 2.0300222526
-t2* -0.466189630 -7.080834e-04 0.0324241984
-t3*  0.001230536  2.840324e-06 0.0001172164</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<table>
-<caption>A matrix: 3 × 4 of type dbl</caption>
-<thead>
-	<tr><th></th><th scope=col>Estimate</th><th scope=col>Std. Error</th><th scope=col>t value</th><th scope=col>Pr(&gt;|t|)</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>(Intercept)</th><td>56.900099702</td><td>1.8004268063</td><td> 31.60367</td><td>1.740911e-109</td></tr>
-	<tr><th scope=row>horsepower</th><td>-0.466189630</td><td>0.0311246171</td><td>-14.97816</td><td> 2.289429e-40</td></tr>
-	<tr><th scope=row>I(horsepower^2)</th><td> 0.001230536</td><td>0.0001220759</td><td> 10.08009</td><td> 2.196340e-21</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
 </div>
 </div>
 
